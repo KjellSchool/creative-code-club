@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import Markdown from "../../layouts/Markdown.astro";
+import { Image } from "astro:assets";
+
+export async function getStaticPaths() {
+    const teams = await getCollection("team");
+    return teams.map((team) => {
+        const slug = team.id.split("/").pop()?.replace(".md", "");
+        return {
+            params: { slug },
+            props: { team },
+        };
+    });
+}
+
+const { team } = Astro.props;
+---
+
+<Markdown>
+    <div slot="top">
+        <a href="/#team">Team</a>
+        <h2><span>{team.data.name}</span></h2>
+    </div>
+    <p>{team.body}</p>
+    <div slot="sidebar" class="profile">
+        <img
+            width="300"
+            height="300"
+            src={team.data.pic.src}
+            alt=""
+            class="image"
+        />
+    </div>
+</Markdown>
+
+<style>
+    a {
+        display: block;
+        margin-bottom: var(--sp-m);
+    }
+
+    .profile {
+        display: flex;
+        flex-flow: column;
+        align-items: end;
+        gap: var(--sp-xs);
+    }
+</style>

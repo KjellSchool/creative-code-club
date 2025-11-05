@@ -45,3 +45,6 @@ export const collections = {
   workshops: workshopsCollection,
   news: newsCollection,
 };
+
+
+
