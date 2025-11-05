@@ -2,7 +2,14 @@
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
 
-const allNews = await getCollection("news");
+// helper to safely turn frontmatter date into a Date
+const toDate = (entry) =>
+  entry.data.date instanceof Date ? entry.data.date : new Date(entry.data.date);
+
+let allNews = await getCollection("news");
+
+// sort descending by date (newest first)
+allNews = allNews.sort((a, b) => toDate(b) - toDate(a));
 ---
 
 <Base title="News">
@@ -10,19 +17,20 @@ const allNews = await getCollection("news");
     <h2><span>News</span></h2>
     <p class="code">The third digit of the code is 3</p>
     <ul>
-      {allNews.map((item) =>(
-        <li>
-          <article>
-            <h3>{item.data.title}</h3>
-            <time datetime={item.data.date}>
-              {item.data.date}
-            </time>
-            <div class="md">
-              {item.body}
-            </div>
-          </article>
-        </li>
-      ))}
+      {
+        allNews.map((item) => {
+          const d = toDate(item);
+          return (
+            <li>
+              <article>
+                <h3>{item.data.title}</h3>
+                <time datetime={d.toISOString()}>{d.toDateString()}</time>
+                <div class="md">{item.body}</div>
+              </article>
+            </li>
+          );
+        })
+      }
     </ul>
   </div>
 </Base>
