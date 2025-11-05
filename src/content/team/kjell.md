@@ -1,5 +1,5 @@
 ---
-name: Kjell Elslander
+name: Kjell
 function: Computational designer.
 pic: img/kristin.jpeg
 bio: computational designer who fuses technology and creativity to inspire innovative design thinking.

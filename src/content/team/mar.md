@@ -1,5 +1,5 @@
 ---
-name: Mar Dorta
+name: Mar
 function: Generative Artist/Educator
 pic: img/casey.jpeg
 bio: Generative artist and educator who bridges art and technology
