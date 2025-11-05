@@ -1,33 +1,25 @@
 ---
 import { getCollection } from "astro:content";
 
-const allMembers = await getCollection("team");
+const { member } = Astro.props;
 ---
 
-{
-  allMembers.map((member) => {
-    const slug = member.id.replace(".md", "");
+<article>
+  <div class="picwrap">
+    <div class="profilepic">
+      <img
+        src={member.data.pic.src}
+        width="300"
+        height="300"
+        alt={`Profile picture of ${member.data.name}`}
+      />
+    </div>
+  </div>
 
-    return (
-      <article>
-        <div class="picwrap">
-          <div class="profilepic">
-            <img
-              src={member.data.pic.src}
-              width="300"
-              height="300"
-              alt={`Profile picture of ${member.data.name}`}
-            />
-          </div>
-        </div>
-
-        <a href={`/team/${member.id}`}>{member.data.name}</a>
-        <p class="function">{member.data.function}</p>
-        <p class="bio">{member.data.bio}</p>
-      </article>
-    );
-  })
-}
+  <a href={`/team/${member.id}`}>{member.data.name}</a>
+  <p class="function">{member.data.function}</p>
+  <p class="bio">{member.data.bio}</p>
+</article>
 
 <style>
   article {
