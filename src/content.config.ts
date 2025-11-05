@@ -35,3 +35,6 @@ export const collections = {
   foundations: foundationsCollection,
   workshops: workshopsCollection,
 };
+
+
+
