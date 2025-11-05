@@ -1,5 +1,7 @@
 ---
+import { getCollection } from "astro:content";
 
+const allFoundations = await getCollection("foundations");
 ---
 
 <section class="container" id="foundations">
@@ -10,9 +12,9 @@
       creativity, and personal growth.
     </p>
   </header>
-  <ul>
-    <li>##FOUNDATION##</li>
-  </ul>
+  <!-- <ul>
+    {allFoundations.map((foundation) => <li>{foundation.data.title}</li>)}
+  </ul> -->
 </section>
 
 <style>
