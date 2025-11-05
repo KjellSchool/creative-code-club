@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
 
-const allNews = await getCollection("items");
+const allNews = await getCollection("news");
 ---
 
 <Base title="News">
@@ -18,7 +18,7 @@ const allNews = await getCollection("items");
               {item.data.date}
             </time>
             <div class="md">
-              ##CONTENT##
+              {item.body}
             </div>
           </article>
         </li>
