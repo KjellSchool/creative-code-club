@@ -1,13 +1,25 @@
 ---
+import { getCollection } from "astro:content";
+
+const allFoundations = await getCollection("foundations");
 ---
 
-<details>
-  <summary>{##TITLE##}</summary>
-  <p>{##DESCRIPTION##}</p>
-  <a href={`/foundations/${##SLUG##}`}>
-    Find out how we put this in practice
-  </a>
-</details>
+{
+  allFoundations.map((foundation) => {
+    // Manually create the slug (same logic we used in [slug].astro)
+    const slug = foundation.id.replace(".md", "");
+
+    return (
+      <details>
+        <summary>{foundation.data.title}</summary>
+        <p>{foundation.data.description}</p>
+        <a href={`/foundations/${slug}`}>
+          Find out how we put this in practice
+        </a>
+      </details>
+    );
+  })
+}
 
 <style>
   details {
@@ -19,8 +31,8 @@
     border-bottom-width: 8px;
 
     text-align: left;
-
-    margin-bottom: var(--sp-m);
+    margin: var(--sp-m);
+    /* margin-bottom: var(--sp-m); */
   }
 
   summary {
