@@ -3,15 +3,23 @@ import { getCollection } from "astro:content";
 
 const allFoundations = await getCollection("foundations");
 ---
-{allFoundations.map((foundation) => (
-  <details>
-  <summary>{foundation.data.title}</summary>
-  <p>{foundation.data.description}</p>
-  <a href={`/foundations/${foundation.id}.md`}>
-    Find out how we put this in practice
-  </a>
-</details>
-))}
+
+{
+  allFoundations.map((foundation) => {
+    // Manually create the slug (same logic we used in [slug].astro)
+    const slug = foundation.id.replace(".md", "");
+
+    return (
+      <details>
+        <summary>{foundation.data.title}</summary>
+        <p>{foundation.data.description}</p>
+        <a href={`/foundations/${slug}`}>
+          Find out how we put this in practice
+        </a>
+      </details>
+    );
+  })
+}
 
 <style>
   details {
